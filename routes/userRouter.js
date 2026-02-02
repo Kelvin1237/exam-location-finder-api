@@ -14,7 +14,7 @@ import {
 router.route("/current").get(authenticateStudent, getCurrentStudent);
 router.route("/staff/current").get(authenticateStaff, getCurrentStaff);
 router
-  .route("/update-student")
+  .route("/student/update")
   .patch(validateUpdateStudentInput, updateStudent);
 
 export default router;
