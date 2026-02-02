@@ -10,15 +10,15 @@ export const authenticateStudent = async (req, res, next) => {
   }
 
   try {
-    const student = verifyJWT(token);
+    const decodedStudent = verifyJWT(token);
 
-    if (student.userType !== "student") {
+    if (decodedStudent.role !== "student") {
       return res
         .status(StatusCodes.FORBIDDEN)
         .json({ msg: "Student access only" });
     }
 
-    const { userId, indexNumber, departmentCode, level } = student;
+    const { userId, indexNumber, departmentCode, level } = decodedStudent;
     req.user = {
       userId,
       indexNumber,
@@ -43,15 +43,15 @@ export const authenticateStaff = async (req, res, next) => {
   }
 
   try {
-    const staff = verifyJWT(token);
+    const decodedStaff = verifyJWT(token);
 
-    if (staff.userType !== "staff") {
+    if (decodedStaff.role !== "staff") {
       return res
         .status(StatusCodes.FORBIDDEN)
         .json({ msg: "Staff access only" });
     }
 
-    const { userId, staffID } = staff;
+    const { userId, staffID } = decodedStaff;
     req.user = {
       userId,
       staffID,

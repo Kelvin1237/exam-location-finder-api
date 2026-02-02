@@ -58,7 +58,7 @@ export const studentLogin = async (req, res) => {
     indexNumber: student.indexNumber,
     departmentCode: student.departmentCode,
     level: student.level,
-    userType: "student",
+    role: "student",
   };
 
   const token = createJWT(payload);
@@ -96,7 +96,7 @@ export const staffLogin = async (req, res) => {
   const payload = {
     userId: staff._id,
     staffID: staff.staffID,
-    userType: "staff",
+    role: "staff",
   };
 
   const token = createJWT(payload);
