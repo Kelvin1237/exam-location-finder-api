@@ -53,7 +53,7 @@ export const validateRegisterStudentInput = withValidationErrors([
 
 export const validateRegisterStaffInput = withValidationErrors([
   body("fullName").trim().notEmpty().withMessage("Full name is required"),
-  body("staffId")
+  body("staffID")
     .trim()
     .notEmpty()
     .withMessage("Staff id is required")
@@ -89,7 +89,7 @@ export const validateLoginStudentInput = withValidationErrors([
 ]);
 
 export const validateLoginStaffInput = withValidationErrors([
-  body("staffId")
+  body("staffID")
     .trim()
     .notEmpty()
     .withMessage("Staff id is required")

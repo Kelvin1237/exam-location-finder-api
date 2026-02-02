@@ -19,9 +19,9 @@ export const registerStudent = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ msg: "user created" });
 };
 export const registerStaff = async (req, res) => {
-  const { staffId } = req.body;
+  const { staffID } = req.body;
 
-  const staffAlreadyExists = await Staff.findOne({ staffId });
+  const staffAlreadyExists = await Staff.findOne({ staffID });
 
   if (staffAlreadyExists) {
     return res
@@ -75,9 +75,9 @@ export const studentLogin = async (req, res) => {
 };
 
 export const staffLogin = async (req, res) => {
-  const { staffId, password } = req.body;
+  const { staffID, password } = req.body;
 
-  const staff = await Staff.findOne({ staffId });
+  const staff = await Staff.findOne({ staffID });
 
   if (!staff) {
     return res
@@ -95,7 +95,7 @@ export const staffLogin = async (req, res) => {
 
   const payload = {
     userId: staff._id,
-    staffId: staff.staffId,
+    staffID: staff.staffID,
     userType: "staff",
   };
 

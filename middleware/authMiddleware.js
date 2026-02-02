@@ -51,10 +51,10 @@ export const authenticateStaff = async (req, res, next) => {
         .json({ msg: "Staff access only" });
     }
 
-    const { userId, staffId } = staff;
+    const { userId, staffID } = staff;
     req.user = {
       userId,
-      staffId,
+      staffID,
     };
     next();
   } catch (error) {

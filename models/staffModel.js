@@ -6,7 +6,7 @@ const StaffSchema = new mongoose.Schema({
     type: String,
   },
 
-  staffId: {
+  staffID: {
     type: String,
     unique: [true, "Staff ID already exists"],
   },
