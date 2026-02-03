@@ -26,7 +26,7 @@ export const registerStaff = async (req, res) => {
   if (staffAlreadyExists) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Staff id already exists" });
+      .json({ msg: "Staff ID already exists" });
   }
 
   const staff = await Staff.create(req.body);
