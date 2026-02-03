@@ -19,7 +19,7 @@ const ExamSchema = new mongoose.Schema(
         endIndexNumber: {
           type: Number,
         },
-        examRoom: {
+        roomAllocated: {
           type: String,
         },
         roomLocation: {

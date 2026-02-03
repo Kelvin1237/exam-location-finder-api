@@ -59,7 +59,7 @@ export const getAllExams = async (req, res) => {
         examId: exam._id,
         courseCode: exam.courseCode,
         courseTitle: exam.courseTitle,
-        examRoom: allocation ? allocation.examRoom : "not assigned",
+        roomAllocated: allocation ? allocation.roomAllocated : "not assigned",
         roomLocation: allocation ? allocation.roomLocation : "not assigned",
         startDate: exam.startDate,
         startTime: exam.startTime,

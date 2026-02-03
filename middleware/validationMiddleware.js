@@ -56,9 +56,9 @@ export const validateRegisterStaffInput = withValidationErrors([
   body("staffID")
     .trim()
     .notEmpty()
-    .withMessage("Staff id is required")
+    .withMessage("Staff ID is required")
     .isAlphanumeric()
-    .withMessage("Staff id must contain only letters and numbers"),
+    .withMessage("Staff ID must contain only letters and numbers"),
   body("password")
     .trim()
     .notEmpty()
@@ -92,9 +92,9 @@ export const validateLoginStaffInput = withValidationErrors([
   body("staffID")
     .trim()
     .notEmpty()
-    .withMessage("Staff id is required")
+    .withMessage("Staff ID is required")
     .isAlphanumeric()
-    .withMessage("Staff id must contain only letters and numbers"),
+    .withMessage("Staff ID must contain only letters and numbers"),
   body("password")
     .trim()
     .notEmpty()
@@ -142,10 +142,10 @@ export const validateExamInput = withValidationErrors([
     .withMessage("End index number is required")
     .isInt({ min: 1000000, max: 9999999 })
     .withMessage("End index number must be a 7-digit number"),
-  body("roomAllocations.*.examRoom")
+  body("roomAllocations.*.roomAllocated")
     .trim()
     .notEmpty()
-    .withMessage("Exam room is required"),
+    .withMessage("Room allocated is required"),
   body("roomAllocations.*.roomLocation")
     .trim()
     .notEmpty()
