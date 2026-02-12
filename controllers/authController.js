@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import Student from "../models/studentModel.js";
 import Staff from "../models/staffModel.js";
+import Admin from "../models/adminModel.js";
 import { createJWT } from "../utils/tokenUtils.js";
 
 export const registerStudent = async (req, res) => {
@@ -16,10 +17,13 @@ export const registerStudent = async (req, res) => {
 
   const student = await Student.create(req.body);
 
-  res.status(StatusCodes.CREATED).json({ msg: "user created" });
+  res.status(StatusCodes.CREATED).json({ msg: "student created" });
 };
+
 export const registerStaff = async (req, res) => {
   const { staffID } = req.body;
+
+  req.body.registeredBy = req.user.userId;
 
   const staffAlreadyExists = await Staff.findOne({ staffID });
 
@@ -31,7 +35,23 @@ export const registerStaff = async (req, res) => {
 
   const staff = await Staff.create(req.body);
 
-  res.status(StatusCodes.CREATED).json({ msg: "user created" });
+  res.status(StatusCodes.CREATED).json({ msg: "staff created" });
+};
+
+export const registerAdmin = async (req, res) => {
+  const { username } = req.body;
+
+  const adminAlreadyExists = await Admin.findOne({ username });
+
+  if (adminAlreadyExists) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Username already exists" });
+  }
+
+  const admin = await Admin.create(req.body);
+
+  res.status(StatusCodes.CREATED).json({ msg: "admin created" });
 };
 
 export const studentLogin = async (req, res) => {
@@ -71,7 +91,7 @@ export const studentLogin = async (req, res) => {
     secure: process.env.NODE_ENV === "production",
   });
 
-  res.status(StatusCodes.OK).json({ msg: "Login successful" });
+  res.status(StatusCodes.OK).json({ msg: "Student login successful" });
 };
 
 export const staffLogin = async (req, res) => {
@@ -109,7 +129,45 @@ export const staffLogin = async (req, res) => {
     secure: process.env.NODE_ENV === "production",
   });
 
-  res.status(StatusCodes.OK).json({ msg: "Login successful" });
+  res.status(StatusCodes.OK).json({ msg: "Staff login successful" });
+};
+
+export const adminLogin = async (req, res) => {
+  const { username, password } = req.body;
+
+  const admin = await Admin.findOne({ username });
+
+  if (!admin) {
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ msg: "invalid credentials" });
+  }
+
+  const isPasswordCorrect = await admin.comparePassword(password);
+
+  if (!isPasswordCorrect) {
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ msg: "invalid credentials" });
+  }
+
+  const payload = {
+    userId: admin._id,
+    username: admin.username,
+    role: "admin",
+  };
+
+  const token = createJWT(payload);
+
+  const oneDay = 1000 * 60 * 60 * 24;
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + oneDay),
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  res.status(StatusCodes.OK).json({ msg: "Admin login successful" });
 };
 
 export const logout = (req, res) => {

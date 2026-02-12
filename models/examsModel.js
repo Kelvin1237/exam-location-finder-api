@@ -63,7 +63,6 @@ const ExamSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "Staff",
-      required: true,
     },
   },
   { timestamps: true },

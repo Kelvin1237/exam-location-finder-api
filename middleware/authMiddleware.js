@@ -63,3 +63,33 @@ export const authenticateStaff = async (req, res, next) => {
       .json({ msg: "authentication invalid" });
   }
 };
+
+export const authenticateAdmin = async (req, res, next) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ msg: "authentication invalid" });
+  }
+
+  try {
+    const decodedAdmin = verifyJWT(token);
+
+    if (decodedAdmin.role !== "admin") {
+      return res
+        .status(StatusCodes.FORBIDDEN)
+        .json({ msg: "Admin access only" });
+    }
+
+    const { userId, username } = decodedAdmin;
+    req.user = {
+      userId,
+      username,
+    };
+    next();
+  } catch (error) {
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ msg: "authentication invalid" });
+  }
+};

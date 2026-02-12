@@ -8,7 +8,9 @@ import { connectDB } from "./db/connect.js";
 //router imports
 import examsRouter from "./routes/examsRouter.js";
 import authRouter from "./routes/authRouter.js";
-import userRouter from "./routes/userRouter.js";
+import studentRouter from "./routes/studentRouter.js";
+import staffRouter from "./routes/staffRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 
 //middleware imports
 import { notFound } from "./middleware/notFound.js";
@@ -16,6 +18,11 @@ import { errorHandlerMiddleware } from "./middleware/errorHandler.js";
 
 //cookie-parser
 import cookieParser from "cookie-parser";
+import {
+  authenticateAdmin,
+  authenticateStaff,
+  authenticateStudent,
+} from "./middleware/authMiddleware.js";
 
 // security imports
 // import helmet from "helmet";
@@ -32,7 +39,9 @@ app.use(express.json());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/exams", examsRouter);
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/students", authenticateStudent, studentRouter);
+app.use("/api/v1/staff", authenticateStaff, staffRouter);
+app.use("/api/v1/admin", authenticateAdmin, adminRouter);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);

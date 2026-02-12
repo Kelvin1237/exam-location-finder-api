@@ -1,0 +1,201 @@
+import Admin from "../models/adminModel.js";
+import Staff from "../models/staffModel.js";
+import Student from "../models/studentModel.js";
+import EditDetailsRequest from "../models/editDetailsRequestModel.js";
+import { StatusCodes } from "http-status-codes";
+
+export const getCurrentAdmin = async (req, res) => {
+  const admin = await Admin.findOne({ _id: req.user.userId });
+
+  const adminWithoutPassword = admin.toJSON();
+
+  res.status(StatusCodes.OK).json({ admin: adminWithoutPassword });
+};
+
+export const getAllStaff = async (req, res) => {
+  const staff = await Staff.find({});
+
+  if (!staff || staff.length === 0) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "No staff found" });
+  }
+
+  const staffWithoutPassword = staff.map((member) => {
+    return member.toJSON();
+  });
+
+  const totalStaff = await Staff.countDocuments();
+
+  res.status(StatusCodes.OK).json({
+    totalStaff,
+    staff: staffWithoutPassword,
+  });
+};
+
+export const getAllStudents = async (req, res) => {
+  const students = await Student.find({});
+
+  if (!students || students.length === 0) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "No staff found" });
+  }
+
+  const studentsWithoutPassword = students.map((student) => {
+    return student.toJSON();
+  });
+
+  const totalStudents = await Student.countDocuments();
+
+  res
+    .status(StatusCodes.OK)
+    .json({ totalStudents, students: studentsWithoutPassword });
+};
+
+export const updateStaff = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  if (password !== undefined) {
+    return res
+      .status(StatusCodes.FORBIDDEN)
+      .json({ msg: "Password cannot be updated here" });
+  }
+
+  const staff = await Staff.findById(id);
+
+  if (!staff) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "Staff not found" });
+  }
+
+  const updatedStaff = await Staff.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "Staff updated successfully", staff: updatedStaff });
+};
+
+export const deleteStaff = async (req, res) => {
+  const { id } = req.params;
+
+  const staff = await Staff.findByIdAndDelete(id);
+
+  if (!staff) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: `No staff with id ${id}` });
+  }
+
+  res.status(StatusCodes.OK).json({ msg: "Staff deleted successfully", staff });
+};
+
+export const deleteStudent = async (req, res) => {
+  const { id } = req.params;
+
+  const student = await Student.findByIdAndDelete(id);
+
+  if (!student) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: `No student with id ${id}` });
+  }
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "Student deleted successfully", student });
+};
+
+export const getSingleStudent = async (req, res) => {
+  const { id } = req.params;
+
+  const student = await Student.findById(id);
+
+  if (!student) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "Student not found" });
+  }
+
+  res.status(StatusCodes.OK).json({ student });
+};
+
+export const getSingleStaff = async (req, res) => {
+  const { id } = req.params;
+
+  const staff = await Staff.findById(id);
+
+  if (!staff) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "Staff not found" });
+  }
+
+  res.status(StatusCodes.OK).json({ staff });
+};
+
+export const approveEditDetailsRequest = async (req, res) => {
+  const { id } = req.params;
+
+  const student = await Student.findById(id);
+
+  if (!student) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "Student not found" });
+  }
+
+  const editDetailsRequest = await EditDetailsRequest.findOne({
+    requestedBy: student._id,
+    status: "pending",
+  });
+
+  if (!editDetailsRequest) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: "No pending edit details request found for this student" });
+  }
+
+  student.indexNumber =
+    editDetailsRequest.newIndexNumber || student.indexNumber;
+  student.departmentCode =
+    editDetailsRequest.newDepartmentCode || student.departmentCode;
+  student.level = editDetailsRequest.newLevel || student.level;
+
+  await student.save();
+
+  editDetailsRequest.status = "approved";
+  await editDetailsRequest.save();
+
+  res.status(StatusCodes.OK).json({
+    msg: "Edit details request approved and student details updated successfully",
+    student,
+  });
+};
+
+export const getAllEditDetailsRequests = async (req, res) => {
+  const { status } = req.query;
+
+  const queryObject = {};
+
+  if (status) {
+    queryObject.status = status;
+  }
+
+  const requests = await EditDetailsRequest.find(queryObject);
+
+  if (!requests || requests.length === 0) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: "No edit details requests found" });
+  }
+
+  res.status(StatusCodes.OK).json({ totalRequests: requests.length, requests });
+};
+
+export const getSingleEditRequest = async (req, res) => {
+  const { id } = req.params;
+
+  const editRequest = await EditDetailsRequest.findById(id);
+
+  if (!editRequest) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: "Edit request not found" });
+  }
+
+  res.status(StatusCodes.OK).json({ editRequest });
+};

@@ -1,5 +1,5 @@
 import Student from "../models/studentModel.js";
-import Staff from "../models/staffModel.js";
+import EditDetailsRequest from "../models/editDetailsRequestModel.js";
 import { StatusCodes } from "http-status-codes";
 
 export const getCurrentStudent = async (req, res) => {
@@ -8,14 +8,6 @@ export const getCurrentStudent = async (req, res) => {
   const studentWithoutPassword = student.toJSON();
 
   res.status(StatusCodes.OK).json({ student: studentWithoutPassword });
-};
-
-export const getCurrentStaff = async (req, res) => {
-  const staff = await Staff.findOne({ _id: req.user.userId });
-
-  const staffWithoutPassword = staff.toJSON();
-
-  res.status(StatusCodes.OK).json({ staff: staffWithoutPassword });
 };
 
 export const updateStudent = async (req, res) => {
@@ -42,12 +34,35 @@ export const updateStudent = async (req, res) => {
       .json({ msg: "Level cannot be updated here" });
   }
 
-  const updatedUser = await User.findByIdAndUpdate(req.user.userId, req.body, {
+  const updatedStudent = await User.findByIdAndUpdate(req.user.userId, req.body, {
     new: true,
     runValidators: true,
   });
 
   res
     .status(StatusCodes.OK)
-    .json({ msg: "user updated successfully", user: updatedUser });
+    .json({ msg: "Student updated successfully", student: updatedStudent });
+};
+
+export const sendEditDetailsRequest = async (req, res) => {
+  const { newIndexNumber, newDepartmentCode, newLevel } = req.body;
+
+  const editDetailsRequest = await EditDetailsRequest.create({
+    requestedBy: req.user.userId,
+    newIndexNumber,
+    newDepartmentCode,
+    newLevel,
+  });
+
+  res.cookie("token", "logout", {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+
+  res
+    .status(StatusCodes.OK)
+    .json({
+      msg: "Your request is under review. Please wait for admin approval.",
+      editDetailsRequest,
+    });
 };

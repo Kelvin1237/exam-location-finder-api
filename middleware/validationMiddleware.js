@@ -105,6 +105,18 @@ export const validateLoginStaffInput = withValidationErrors([
     ),
 ]);
 
+export const validateRegisterLoginAdminInput = withValidationErrors([
+  body("username").trim().notEmpty().withMessage("Username is required"),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required")
+    .isStrongPassword()
+    .withMessage(
+      "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.",
+    ),
+]);
+
 export const validateIdParam = withValidationErrors([
   param("id").custom((value) => {
     const isValidMongoId = mongoose.Types.ObjectId.isValid(value);
@@ -185,4 +197,28 @@ export const validateExamInput = withValidationErrors([
     .optional()
     .isIn(Object.values(EXAM_STATUS))
     .withMessage("Invalid exam status"),
+]);
+
+export const validateEditStudentDetailsInput = withValidationErrors([
+  body("newIndexNumber")
+    .trim()
+    .optional()
+    .isInt({ min: 1000000, max: 9999999 })
+    .withMessage("Index number must be a 7-digit number"),
+  body("newDepartmentCode")
+    .trim()
+    .optional()
+    .isLength({ min: 3, max: 3 })
+    .withMessage("Department code must be 3 digits")
+    .isNumeric()
+    .withMessage("Department code must contain only digits"),
+  body("newLevel")
+    .trim()
+    .optional()
+    .isIn(Object.values(LEVELS))
+    .withMessage("Level does not exist"),
+  body("reason")
+    .trim()
+    .notEmpty()
+    .withMessage("Reason for edit request is required"),
 ]);
