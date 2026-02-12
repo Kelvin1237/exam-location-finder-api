@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { EXAM_STATUS, LEVELS } from "../utils/constants.js";
+import { EXAM_STATUS } from "../utils/constants.js";
 
 const ExamSchema = new mongoose.Schema(
   {
@@ -62,7 +62,7 @@ const ExamSchema = new mongoose.Schema(
 
     createdBy: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      ref: "Staff",
       required: true,
     },
   },
