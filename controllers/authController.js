@@ -73,6 +73,17 @@ export const studentLogin = async (req, res) => {
       .json({ msg: "invalid credentials" });
   }
 
+  const pendingRequest = await EditDetailsRequest.findOne({
+    requestedBy: student._id,
+    status: "pending",
+  });
+
+  if (pendingRequest) {
+    return res.status(StatusCodes.FORBIDDEN).json({
+      msg: "Your details correction request is still under review. Please wait for admin approval.",
+    });
+  }
+
   const payload = {
     userId: student._id,
     indexNumber: student.indexNumber,

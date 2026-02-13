@@ -161,7 +161,7 @@ export const approveEditDetailsRequest = async (req, res) => {
   await editDetailsRequest.save();
 
   res.status(StatusCodes.OK).json({
-    msg: "Edit details request approved and student details updated successfully",
+    msg: "Edit details request approved. Student details updated successfully",
     student,
   });
 };

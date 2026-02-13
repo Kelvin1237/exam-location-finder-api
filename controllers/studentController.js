@@ -34,10 +34,14 @@ export const updateStudent = async (req, res) => {
       .json({ msg: "Level cannot be updated here" });
   }
 
-  const updatedStudent = await User.findByIdAndUpdate(req.user.userId, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const updatedStudent = await User.findByIdAndUpdate(
+    req.user.userId,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
 
   res
     .status(StatusCodes.OK)
@@ -59,10 +63,8 @@ export const sendEditDetailsRequest = async (req, res) => {
     expires: new Date(Date.now()),
   });
 
-  res
-    .status(StatusCodes.OK)
-    .json({
-      msg: "Your request is under review. Please wait for admin approval.",
-      editDetailsRequest,
-    });
+  res.status(StatusCodes.OK).json({
+    msg: "Request sent successfully. You will be logged out until your request is approved.",
+    editDetailsRequest,
+  });
 };
