@@ -15,6 +15,7 @@ import {
 const router = Router();
 import {
   validateRegisterStaffInput,
+  validateUpdateStaffInput,
   validateIdParam,
 } from "../middleware/validationMiddleware.js";
 
@@ -29,7 +30,7 @@ router
 router
   .route("/staff/:id")
   .get(validateIdParam, getSingleStaff)
-  .patch(validateIdParam, validateRegisterStaffInput, updateStaff)
+  .patch(validateIdParam, validateUpdateStaffInput, updateStaff)
   .delete(validateIdParam, deleteStaff);
 router
   .route("/student/:id")

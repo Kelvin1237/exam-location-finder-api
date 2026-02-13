@@ -51,28 +51,23 @@ export const getAllStudents = async (req, res) => {
 
 export const updateStaff = async (req, res) => {
   const { id } = req.params;
-  const { password } = req.body;
-
-  if (password !== undefined) {
-    return res
-      .status(StatusCodes.FORBIDDEN)
-      .json({ msg: "Password cannot be updated here" });
-  }
+  const { staffID, password, fullName } = req.body;
 
   const staff = await Staff.findById(id);
-
   if (!staff) {
     return res.status(StatusCodes.NOT_FOUND).json({ msg: "Staff not found" });
   }
 
-  const updatedStaff = await Staff.findByIdAndUpdate(id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  if (staffID) staff.staffID = staffID;
+  if (password) staff.password = password; //implement reset password instead of direct update
+  if (fullName) staff.fullName = fullName;
 
-  res
-    .status(StatusCodes.OK)
-    .json({ msg: "Staff updated successfully", staff: updatedStaff });
+  await staff.save();
+
+  res.status(StatusCodes.OK).json({
+    msg: "Staff updated successfully",
+    staff,
+  });
 };
 
 export const deleteStaff = async (req, res) => {
@@ -132,36 +127,39 @@ export const getSingleStaff = async (req, res) => {
 export const approveEditDetailsRequest = async (req, res) => {
   const { id } = req.params;
 
-  const student = await Student.findById(id);
+  const editDetailsRequest = await EditDetailsRequest.findById(id);
 
-  if (!student) {
-    return res.status(StatusCodes.NOT_FOUND).json({ msg: "Student not found" });
+  if (!editDetailsRequest || editDetailsRequest.status !== "pending") {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: "No pending edit details request found",
+    });
   }
 
-  const editDetailsRequest = await EditDetailsRequest.findOne({
-    requestedBy: student._id,
-    status: "pending",
-  });
+  const student = await Student.findById(editDetailsRequest.requestedBy);
 
-  if (!editDetailsRequest) {
-    return res
-      .status(StatusCodes.NOT_FOUND)
-      .json({ msg: "No pending edit details request found for this student" });
+  if (!student) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: "Student not found",
+    });
   }
 
   student.indexNumber =
     editDetailsRequest.newIndexNumber || student.indexNumber;
+
   student.departmentCode =
     editDetailsRequest.newDepartmentCode || student.departmentCode;
+
   student.level = editDetailsRequest.newLevel || student.level;
 
   await student.save();
 
   editDetailsRequest.status = "approved";
+  editDetailsRequest.reviewedAt = new Date();
+
   await editDetailsRequest.save();
 
   res.status(StatusCodes.OK).json({
-    msg: "Edit details request approved. Student details updated successfully",
+    msg: "Edit details request approved successfully",
     student,
   });
 };

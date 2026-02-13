@@ -134,53 +134,67 @@ export const validateUpdateStudentInput = withValidationErrors([
 export const validateExamInput = withValidationErrors([
   body("courseCode")
     .trim()
+    .optional()
     .notEmpty()
     .withMessage("Course code is required")
     .isAlphanumeric()
     .withMessage("Course code must contain only letters and numbers"),
-  body("courseTitle").trim().notEmpty().withMessage("Course title is required"),
+  body("courseTitle")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Course title is required"),
   body("roomAllocations")
+    .optional()
     .isArray({ min: 1 })
     .withMessage("At least one room allocation is required"),
   body("roomAllocations.*.startIndexNumber")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("Start index number is required")
     .isInt({ min: 1000000, max: 9999999 })
     .withMessage("Start index number must be a 7-digit number"),
   body("roomAllocations.*.endIndexNumber")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("End index number is required")
     .isInt({ min: 1000000, max: 9999999 })
     .withMessage("End index number must be a 7-digit number"),
   body("roomAllocations.*.roomAllocated")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("Room allocated is required"),
   body("roomAllocations.*.roomLocation")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("Room location is required"),
   body("startDate")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("Start date is required")
     .isDate()
     .withMessage("Start date must be in the format YYYY-MM-DD"),
   body("startTime")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("Start time is required")
     .isTime()
     .withMessage("Start time must be in valid 24-hour format HH:MM"),
   body("endTime")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("End time is required")
     .isTime()
     .withMessage("End time must be in valid 24-hour format HH:MM"),
   body("departmentCode")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("Department code is required")
@@ -189,14 +203,40 @@ export const validateExamInput = withValidationErrors([
     .isNumeric()
     .withMessage("Department code must contain only digits"),
   body("level")
+    .optional()
     .notEmpty()
     .withMessage("level is required")
     .isIn(Object.values(LEVELS))
     .withMessage("Level does not exist"),
   body("examStatus")
     .optional()
+    .optional()
     .isIn(Object.values(EXAM_STATUS))
     .withMessage("Invalid exam status"),
+]);
+
+export const validateUpdateStaffInput = withValidationErrors([
+  body("fullName")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Full name is required"),
+  body("staffID")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Staff ID is required")
+    .isAlphanumeric()
+    .withMessage("Staff ID must contain only letters and numbers"),
+  body("password")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required")
+    .isStrongPassword()
+    .withMessage(
+      "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.",
+    ),
 ]);
 
 export const validateEditStudentDetailsInput = withValidationErrors([

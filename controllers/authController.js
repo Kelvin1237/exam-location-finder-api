@@ -24,8 +24,6 @@ export const registerStudent = async (req, res) => {
 export const registerStaff = async (req, res) => {
   const { staffID } = req.body;
 
-  req.body.registeredBy = req.user.userId;
-
   const staffAlreadyExists = await Staff.findOne({ staffID });
 
   if (staffAlreadyExists) {

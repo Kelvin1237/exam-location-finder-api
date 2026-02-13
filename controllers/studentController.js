@@ -34,7 +34,7 @@ export const updateStudent = async (req, res) => {
       .json({ msg: "Level cannot be updated here" });
   }
 
-  const updatedStudent = await User.findByIdAndUpdate(
+  const updatedStudent = await Student.findByIdAndUpdate(
     req.user.userId,
     req.body,
     {
