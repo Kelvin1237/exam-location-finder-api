@@ -24,6 +24,9 @@ router.route("/all-students").get(getAllStudents);
 router.route("/edit-requests").get(getAllEditDetailsRequests);
 router.route("/edit-requests/:id").get(validateIdParam, getSingleEditRequest);
 router
+  .route("/edit-requests/approve/:id")
+  .patch(validateIdParam, approveEditDetailsRequest);
+router
   .route("/staff/:id")
   .get(validateIdParam, getSingleStaff)
   .patch(validateIdParam, validateRegisterStaffInput, updateStaff)
@@ -32,8 +35,5 @@ router
   .route("/student/:id")
   .get(validateIdParam, getSingleStudent)
   .delete(validateIdParam, deleteStudent);
-router
-  .route("/approve-request/:id")
-  .post(validateIdParam, approveEditDetailsRequest);
 
 export default router;

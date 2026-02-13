@@ -1,0 +1,411 @@
+[
+  {
+    "fullName": "Student 1885922",
+    "indexNumber": 1885922,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3360622",
+    "indexNumber": 3360622,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3361122",
+    "indexNumber": 3361122,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3363122",
+    "indexNumber": 3363122,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3363422",
+    "indexNumber": 3363422,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3367222",
+    "indexNumber": 3367222,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3368122",
+    "indexNumber": 3368122,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3372822",
+    "indexNumber": 3372822,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3374022",
+    "indexNumber": 3374022,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3375122",
+    "indexNumber": 3375122,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3378722",
+    "indexNumber": 3378722,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3381222",
+    "indexNumber": 3381222,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3384022",
+    "indexNumber": 3384022,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3384722",
+    "indexNumber": 3384722,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3391722",
+    "indexNumber": 3391722,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3394422",
+    "indexNumber": 3394422,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3395322",
+    "indexNumber": 3395322,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3398822",
+    "indexNumber": 3398822,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3402822",
+    "indexNumber": 3402822,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3411722",
+    "indexNumber": 3411722,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3413322",
+    "indexNumber": 3413322,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3415122",
+    "indexNumber": 3415122,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3417022",
+    "indexNumber": 3417022,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3418922",
+    "indexNumber": 3418922,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 3419122",
+    "indexNumber": 3419122,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 4183220",
+    "indexNumber": 4183220,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 7399921",
+    "indexNumber": 7399921,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8553821",
+    "indexNumber": 8553821,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8557421",
+    "indexNumber": 8557421,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+
+  {
+    "fullName": "Student 8975923",
+    "indexNumber": 8975923,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976023",
+    "indexNumber": 8976023,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976123",
+    "indexNumber": 8976123,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976223",
+    "indexNumber": 8976223,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976323",
+    "indexNumber": 8976323,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976423",
+    "indexNumber": 8976423,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976523",
+    "indexNumber": 8976523,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976623",
+    "indexNumber": 8976623,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976723",
+    "indexNumber": 8976723,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8976823",
+    "indexNumber": 8976823,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+
+  {
+    "fullName": "Student 8977023",
+    "indexNumber": 8977023,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977123",
+    "indexNumber": 8977123,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977223",
+    "indexNumber": 8977223,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977423",
+    "indexNumber": 8977423,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977523",
+    "indexNumber": 8977523,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977623",
+    "indexNumber": 8977623,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977723",
+    "indexNumber": 8977723,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977823",
+    "indexNumber": 8977823,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8977923",
+    "indexNumber": 8977923,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978023",
+    "indexNumber": 8978023,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+
+  {
+    "fullName": "Student 8978123",
+    "indexNumber": 8978123,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978223",
+    "indexNumber": 8978223,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978323",
+    "indexNumber": 8978323,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978423",
+    "indexNumber": 8978423,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978523",
+    "indexNumber": 8978523,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978623",
+    "indexNumber": 8978623,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978723",
+    "indexNumber": 8978723,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978823",
+    "indexNumber": 8978823,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  },
+  {
+    "fullName": "Student 8978923",
+    "indexNumber": 8978923,
+    "departmentCode": "086",
+    "level": 200,
+    "password": "Secret123!"
+  }
+]

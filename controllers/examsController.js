@@ -26,7 +26,7 @@ export const getAllExams = async (req, res) => {
     ];
   }
 
-  const view = req.query.view || "today";
+  const view = req.query.view || "all";
 
   if (view === "today") {
     queryObject.startDate = {

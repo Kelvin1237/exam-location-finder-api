@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import Student from "../models/studentModel.js";
 import Staff from "../models/staffModel.js";
 import Admin from "../models/adminModel.js";
+import EditDetailsRequest from "../models/editDetailsRequestModel.js";
 import { createJWT } from "../utils/tokenUtils.js";
 
 export const registerStudent = async (req, res) => {

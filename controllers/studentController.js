@@ -49,13 +49,14 @@ export const updateStudent = async (req, res) => {
 };
 
 export const sendEditDetailsRequest = async (req, res) => {
-  const { newIndexNumber, newDepartmentCode, newLevel } = req.body;
+  const { newIndexNumber, newDepartmentCode, newLevel, reason } = req.body;
 
   const editDetailsRequest = await EditDetailsRequest.create({
     requestedBy: req.user.userId,
     newIndexNumber,
     newDepartmentCode,
     newLevel,
+    reason,
   });
 
   res.cookie("token", "logout", {
