@@ -14,7 +14,6 @@ import {
 } from "../controllers/adminController.js";
 const router = Router();
 import {
-  validateRegisterStaffInput,
   validateUpdateStaffInput,
   validateIdParam,
 } from "../middleware/validationMiddleware.js";
