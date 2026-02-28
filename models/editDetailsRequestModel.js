@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { LEVELS, PROGRAMS } from "../utils/constants.js";
 
 const EditDetailsRequestSchema = new mongoose.Schema(
   {
@@ -18,7 +19,12 @@ const EditDetailsRequestSchema = new mongoose.Schema(
 
     newLevel: {
       type: Number,
-      enum: [100, 200, 300, 400, 500, 600],
+      enum: Object.values(LEVELS),
+    },
+
+    newProgram: {
+      type: String,
+      enum: Object.values(PROGRAMS),
     },
 
     reason: {

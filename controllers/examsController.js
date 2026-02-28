@@ -3,13 +3,14 @@ import Exam from "../models/examsModel.js";
 import { StatusCodes } from "http-status-codes";
 
 export const getAllExams = async (req, res) => {
-  const { departmentCode, level, indexNumber } = req.user;
+  const { departmentCode, program, level, indexNumber } = req.user;
   const { search, examStatus } = req.query;
 
   const now = dayjs();
 
   const queryObject = {
     departmentCode,
+    program,
     level,
     roomAllocations: {
       $elemMatch: {
@@ -82,6 +83,17 @@ export const getAllExams = async (req, res) => {
 export const createExam = async (req, res) => {
   req.body.createdBy = req.user.userId;
 
+  const courseCodeExists = await Exam.findOne({
+    courseCode: req.body.courseCode,
+    createdBy: req.user.userId,
+  });
+  
+  if (courseCodeExists) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "You have already posted an exam for this course." });
+  }
+
   const exam = await Exam.create(req.body);
 
   res
@@ -90,7 +102,7 @@ export const createExam = async (req, res) => {
 };
 
 export const getAllPostedExams = async (req, res) => {
-  const { search, view, examStatus, departmentCode, level } = req.query;
+  const { search, view, examStatus, departmentCode, level, program } = req.query;
 
   const now = dayjs();
 
@@ -107,6 +119,10 @@ export const getAllPostedExams = async (req, res) => {
 
   if (departmentCode) {
     queryObject.departmentCode = departmentCode;
+  }
+
+  if(program) {
+    queryObject.program = program;
   }
 
   if (level) {

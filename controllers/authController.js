@@ -87,6 +87,7 @@ export const studentLogin = async (req, res) => {
     userId: student._id,
     indexNumber: student.indexNumber,
     departmentCode: student.departmentCode,
+    program: student.program,
     level: student.level,
     role: "student",
   };

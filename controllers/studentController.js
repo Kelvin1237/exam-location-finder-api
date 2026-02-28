@@ -11,7 +11,7 @@ export const getCurrentStudent = async (req, res) => {
 };
 
 export const updateStudent = async (req, res) => {
-  const { password, indexNumber, departmentCode, level } = req.body;
+  const { password, indexNumber, departmentCode, program, level } = req.body;
 
   if (password !== undefined) {
     return res
@@ -27,6 +27,11 @@ export const updateStudent = async (req, res) => {
     return res
       .status(StatusCodes.FORBIDDEN)
       .json({ msg: "Department code cannot be updated here" });
+  }
+  if (program !== undefined) {
+    return res
+      .status(StatusCodes.FORBIDDEN)
+      .json({ msg: "Program cannot be updated here" });
   }
   if (level !== undefined) {
     return res
@@ -49,12 +54,13 @@ export const updateStudent = async (req, res) => {
 };
 
 export const sendEditDetailsRequest = async (req, res) => {
-  const { newIndexNumber, newDepartmentCode, newLevel, reason } = req.body;
+  const { newIndexNumber, newDepartmentCode, newLevel, newProgram, reason } = req.body;
 
   const editDetailsRequest = await EditDetailsRequest.create({
     requestedBy: req.user.userId,
     newIndexNumber,
     newDepartmentCode,
+    newProgram,
     newLevel,
     reason,
   });

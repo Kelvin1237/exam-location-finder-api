@@ -1,7 +1,7 @@
 import { body, param, validationResult } from "express-validator";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
-import { LEVELS, EXAM_STATUS } from "../utils/constants.js";
+import { LEVELS, EXAM_STATUS, PROGRAMS } from "../utils/constants.js";
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -35,6 +35,12 @@ export const validateRegisterStudentInput = withValidationErrors([
     .withMessage("Department code must be 3 digits")
     .isNumeric()
     .withMessage("Department code must contain only digits"),
+  body("program")
+    .optional()
+    .notEmpty()
+    .withMessage("program is required")
+    .isIn(Object.values(PROGRAMS))
+    .withMessage("Program does not exist"),
   body("level")
     .trim()
     .notEmpty()
@@ -202,6 +208,12 @@ export const validateExamInput = withValidationErrors([
     .withMessage("Department code must be 3 digits")
     .isNumeric()
     .withMessage("Department code must contain only digits"),
+  body("program")
+    .optional()
+    .notEmpty()
+    .withMessage("program is required")
+    .isIn(Object.values(PROGRAMS))
+    .withMessage("Program does not exist"),
   body("level")
     .optional()
     .notEmpty()
@@ -252,6 +264,12 @@ export const validateEditStudentDetailsInput = withValidationErrors([
     .withMessage("Department code must be 3 digits")
     .isNumeric()
     .withMessage("Department code must contain only digits"),
+  body("newProgram")
+    .optional()
+    .notEmpty()
+    .withMessage("program is required")
+    .isIn(Object.values(PROGRAMS))
+    .withMessage("Program does not exist"),
   body("newLevel")
     .trim()
     .optional()

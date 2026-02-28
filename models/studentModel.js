@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { LEVELS, PROGRAMS } from "../utils/constants.js";
 
 const StudentSchema = new mongoose.Schema(
   {
@@ -16,9 +17,15 @@ const StudentSchema = new mongoose.Schema(
       type: String,
     },
 
+    program: {
+      type: String,
+      enum: Object.values(PROGRAMS),
+      required: true,
+    },
+
     level: {
       type: Number,
-      enum: [100, 200, 300, 400, 500, 600],
+      enum: Object.values(LEVELS),
     },
 
     password: {

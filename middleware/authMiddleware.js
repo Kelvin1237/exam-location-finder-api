@@ -18,11 +18,13 @@ export const authenticateStudent = async (req, res, next) => {
         .json({ msg: "Student access only" });
     }
 
-    const { userId, indexNumber, departmentCode, level } = decodedStudent;
+    const { userId, indexNumber, departmentCode, program, level } =
+      decodedStudent;
     req.user = {
       userId,
       indexNumber,
       departmentCode,
+      program,
       level,
     };
 

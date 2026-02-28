@@ -35,7 +35,7 @@ export const getAllStudents = async (req, res) => {
   const students = await Student.find({});
 
   if (!students || students.length === 0) {
-    return res.status(StatusCodes.NOT_FOUND).json({ msg: "No staff found" });
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "No students found" });
   }
 
   const studentsWithoutPassword = students.map((student) => {
@@ -148,6 +148,8 @@ export const approveEditDetailsRequest = async (req, res) => {
 
   student.departmentCode =
     editDetailsRequest.newDepartmentCode || student.departmentCode;
+
+  student.program = editDetailsRequest.newProgram || student.program;
 
   student.level = editDetailsRequest.newLevel || student.level;
 

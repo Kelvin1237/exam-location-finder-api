@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { EXAM_STATUS } from "../utils/constants.js";
+import { EXAM_STATUS, LEVELS, PROGRAMS } from "../utils/constants.js";
 
 const ExamSchema = new mongoose.Schema(
   {
@@ -44,9 +44,14 @@ const ExamSchema = new mongoose.Schema(
       type: String,
     },
 
+    program: {
+      type: String,
+      enum: Object.values(PROGRAMS),
+    },
+
     level: {
       type: Number,
-      enum: [100, 200, 300, 400, 500, 600],
+      enum: Object.values(LEVELS),
     },
 
     view: {
