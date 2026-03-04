@@ -49,12 +49,16 @@ export const getAllExams = async (req, res) => {
       const examDate = dayjs(exam.startDate).format("YYYY-MM-DD");
       const examStart = dayjs(`${examDate} ${exam.startTime}`);
       const examEnd = dayjs(`${examDate} ${exam.endTime}`);
-      const completedAt = examEnd.add(1, "hour");
 
       let computedStatus = "upcoming";
-      if (now.isAfter(examStart) && now.isBefore(examEnd))
+
+      if (now.isBefore(examStart)) {
+        computedStatus = "upcoming";
+      } else if (now.isBefore(examEnd)) {
         computedStatus = "ongoing";
-      else if (now.isAfter(completedAt)) computedStatus = "completed";
+      } else {
+        computedStatus = "completed";
+      }
 
       return {
         examId: exam._id,
@@ -87,7 +91,7 @@ export const createExam = async (req, res) => {
     courseCode: req.body.courseCode,
     createdBy: req.user.userId,
   });
-  
+
   if (courseCodeExists) {
     return res
       .status(StatusCodes.BAD_REQUEST)
@@ -102,7 +106,8 @@ export const createExam = async (req, res) => {
 };
 
 export const getAllPostedExams = async (req, res) => {
-  const { search, view, examStatus, departmentCode, level, program } = req.query;
+  const { search, view, examStatus, departmentCode, level, program } =
+    req.query;
 
   const now = dayjs();
 
@@ -121,7 +126,7 @@ export const getAllPostedExams = async (req, res) => {
     queryObject.departmentCode = departmentCode;
   }
 
-  if(program) {
+  if (program) {
     queryObject.program = program;
   }
 
