@@ -4,8 +4,17 @@ import { LEVELS, PROGRAMS } from "../utils/constants.js";
 
 const StudentSchema = new mongoose.Schema(
   {
-    fullName: {
+    firstName: {
       type: String,
+    },
+
+    lastName: {
+      type: String,
+    },
+
+    email: {
+      type: String,
+      unique: true,
     },
 
     indexNumber: {

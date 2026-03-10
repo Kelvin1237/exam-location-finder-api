@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 export const getAllExams = async (req, res) => {
   const { departmentCode, program, level, indexNumber } = req.user;
-  const { search, examStatus } = req.query;
+  const { search, examStatus, examType } = req.query;
 
   const now = dayjs();
 
@@ -25,6 +25,10 @@ export const getAllExams = async (req, res) => {
       { courseCode: { $regex: search, $options: "i" } },
       { courseTitle: { $regex: search, $options: "i" } },
     ];
+  }
+
+  if (examType) {
+    queryObject.examType = examType;
   }
 
   const view = req.query.view || "all";
@@ -64,24 +68,33 @@ export const getAllExams = async (req, res) => {
         examId: exam._id,
         courseCode: exam.courseCode,
         courseTitle: exam.courseTitle,
+        program: exam.program,
         roomAllocated: allocation ? allocation.roomAllocated : "not assigned",
         roomLocation: allocation ? allocation.roomLocation : "not assigned",
         startDate: exam.startDate,
         startTime: exam.startTime,
         endTime: exam.endTime,
+        examType: exam.examType,
         examStatus: computedStatus,
       };
     })
     .filter((exam) => (examStatus ? exam.examStatus === examStatus : true));
 
   const numOfPapers = formattedExams.length;
-  if (numOfPapers === 0) {
-    return res.status(StatusCodes.OK).json({ msg: "No exams found" });
-  }
+
+  const stats = {
+    upcoming: 0,
+    ongoing: 0,
+    completed: 0,
+  };
+
+  formattedExams.forEach((exam) => {
+    stats[exam.examStatus]++;
+  });
 
   return res
     .status(StatusCodes.OK)
-    .json({ numOfPapers, exams: formattedExams });
+    .json({ numOfPapers, stats, exams: formattedExams });
 };
 
 export const createExam = async (req, res) => {
@@ -106,7 +119,7 @@ export const createExam = async (req, res) => {
 };
 
 export const getAllPostedExams = async (req, res) => {
-  const { search, view, examStatus, departmentCode, level, program } =
+  const { search, view, examStatus, departmentCode, level, program, examType } =
     req.query;
 
   const now = dayjs();
@@ -132,6 +145,10 @@ export const getAllPostedExams = async (req, res) => {
 
   if (level) {
     queryObject.level = level;
+  }
+
+  if (examType) {
+    queryObject.examType = examType;
   }
 
   if (view === "today") {

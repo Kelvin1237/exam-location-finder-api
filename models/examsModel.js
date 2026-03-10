@@ -59,6 +59,11 @@ const ExamSchema = new mongoose.Schema(
       enum: ["today", "all"],
     },
 
+    examType: {
+      type: String,
+      enum: ["written", "computer-based"],
+    },
+
     examStatus: {
       type: String,
       enum: Object.values(EXAM_STATUS),

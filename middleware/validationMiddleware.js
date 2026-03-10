@@ -20,7 +20,8 @@ const withValidationErrors = (validateValues) => {
 };
 
 export const validateRegisterStudentInput = withValidationErrors([
-  body("fullName").trim().notEmpty().withMessage("Full name is required"),
+  body("firstName").trim().notEmpty().withMessage("First name is required"),
+  body("lastName").trim().notEmpty().withMessage("Last name is required"),
   body("indexNumber")
     .trim()
     .notEmpty()
@@ -47,6 +48,13 @@ export const validateRegisterStudentInput = withValidationErrors([
     .withMessage("level is required")
     .isIn(Object.values(LEVELS))
     .withMessage("Level does not exist"),
+  body("email")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Please enter valid email"),
   body("password")
     .trim()
     .notEmpty()
@@ -134,10 +142,105 @@ export const validateIdParam = withValidationErrors([
 ]);
 
 export const validateUpdateStudentInput = withValidationErrors([
-  body("fullName").trim().notEmpty().withMessage("Full name is required"),
+  body("firstName")
+    .trim()
+    .optional()
+    .notEmpty()
+    .withMessage("First name is required"),
+  body("lastName")
+    .trim()
+    .optional()
+    .notEmpty()
+    .withMessage("Last name is required"),
+  body("email")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Please enter valid email"),
 ]);
 
 export const validateExamInput = withValidationErrors([
+  body("courseCode")
+    .trim()
+    .notEmpty()
+    .withMessage("Course code is required")
+    .isAlphanumeric()
+    .withMessage("Course code must contain only letters and numbers"),
+  body("courseTitle").trim().notEmpty().withMessage("Course title is required"),
+  body("roomAllocations")
+    .isArray({ min: 1 })
+    .withMessage("At least one room allocation is required"),
+  body("roomAllocations.*.startIndexNumber")
+    .trim()
+    .notEmpty()
+    .withMessage("Start index number is required")
+    .isInt({ min: 1000000, max: 9999999 })
+    .withMessage("Start index number must be a 7-digit number"),
+  body("roomAllocations.*.endIndexNumber")
+    .trim()
+    .notEmpty()
+    .withMessage("End index number is required")
+    .isInt({ min: 1000000, max: 9999999 })
+    .withMessage("End index number must be a 7-digit number"),
+  body("roomAllocations.*.roomAllocated")
+    .trim()
+    .notEmpty()
+    .withMessage("Room allocated is required"),
+  body("roomAllocations.*.roomLocation")
+    .trim()
+    .notEmpty()
+    .withMessage("Room location is required"),
+  body("startDate")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Start date is required")
+    .isDate()
+    .withMessage("Start date must be in the format YYYY-MM-DD"),
+  body("startTime")
+    .trim()
+    .notEmpty()
+    .withMessage("Start time is required")
+    .isTime()
+    .withMessage("Start time must be in valid 24-hour format HH:MM"),
+  body("endTime")
+    .trim()
+    .notEmpty()
+    .withMessage("End time is required")
+    .isTime()
+    .withMessage("End time must be in valid 24-hour format HH:MM"),
+  body("departmentCode")
+    .trim()
+    .notEmpty()
+    .withMessage("Department code is required")
+    .isLength({ min: 3, max: 3 })
+    .withMessage("Department code must be 3 digits")
+    .isNumeric()
+    .withMessage("Department code must contain only digits"),
+  body("program")
+    .notEmpty()
+    .withMessage("program is required")
+    .isIn(Object.values(PROGRAMS))
+    .withMessage("Program does not exist"),
+  body("level")
+    .notEmpty()
+    .withMessage("level is required")
+    .isIn(Object.values(LEVELS))
+    .withMessage("Level does not exist"),
+  body("examType")
+    .notEmpty()
+    .withMessage("Exam type is required")
+    .isIn(["written", "computer-based"])
+    .withMessage("Exam type does not exist"),
+  body("examStatus")
+    .optional()
+    .isIn(Object.values(EXAM_STATUS))
+    .withMessage("Invalid exam status"),
+]);
+
+export const validateUpdateExamInput = withValidationErrors([
   body("courseCode")
     .trim()
     .optional()
@@ -220,8 +323,13 @@ export const validateExamInput = withValidationErrors([
     .withMessage("level is required")
     .isIn(Object.values(LEVELS))
     .withMessage("Level does not exist"),
-  body("examStatus")
+  body("examType")
     .optional()
+    .notEmpty()
+    .withMessage("Exam type is required")
+    .isIn(["written", "computer-based"])
+    .withMessage("Exam type does not exist"),
+  body("examStatus")
     .optional()
     .isIn(Object.values(EXAM_STATUS))
     .withMessage("Invalid exam status"),

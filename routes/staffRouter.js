@@ -10,6 +10,7 @@ import {
 import {
   validateIdParam,
   validateExamInput,
+  validateUpdateExamInput,
 } from "../middleware/validationMiddleware.js";
 const router = Router();
 
@@ -21,7 +22,7 @@ router
 router
   .route("/exams/:id")
   .get(validateIdParam, getSingleExam)
-  .patch(validateIdParam, validateExamInput, updatePostedExam)
+  .patch(validateIdParam, validateUpdateExamInput, updatePostedExam)
   .delete(validateIdParam, deletePostedExam);
 
 export default router;
