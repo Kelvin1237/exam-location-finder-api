@@ -29,17 +29,20 @@ const apiLimiter = rateLimiter({
   },
 });
 
+const forgotPasswordAPILimiter = rateLimiter({
+  windowMs: 1000 * 60 * 10,
+  max: 5,
+  message: {
+    msg: "Too many password reset requests, please try again later",
+  },
+});
+
 router
   .route("/register")
   .post(apiLimiter, validateRegisterStudentInput, registerStudent);
 router
   .route("/staff/register")
-  .post(
-    authenticateAdmin,
-    apiLimiter,
-    validateRegisterStaffInput,
-    registerStaff,
-  );
+  .post(authenticateAdmin, validateRegisterStaffInput, registerStaff);
 router
   .route("/admin/register")
   .post(apiLimiter, validateRegisterLoginAdminInput, registerAdmin);
@@ -55,7 +58,7 @@ router
 router.route("/logout").get(logout);
 router.route("/staff/logout").get(logout);
 router.route("/admin/logout").get(logout);
+router.route("/forgot-password").post(forgotPasswordAPILimiter, forgotPassword);
 router.route("/reset-password").post(resetPassword);
-router.route("/forgot-password").post(forgotPassword);
 
 export default router;
