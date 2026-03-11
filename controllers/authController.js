@@ -4,6 +4,9 @@ import Staff from "../models/staffModel.js";
 import Admin from "../models/adminModel.js";
 import EditDetailsRequest from "../models/editDetailsRequestModel.js";
 import { createJWT } from "../utils/tokenUtils.js";
+import { sendResetPasswordEmail } from "../utils/sendResetPasswordEmail.js";
+import { createHashToken } from "../utils/createHash.js";
+import crypto from "crypto";
 
 export const registerStudent = async (req, res) => {
   const { indexNumber } = req.body;
@@ -179,6 +182,77 @@ export const adminLogin = async (req, res) => {
   });
 
   res.status(StatusCodes.OK).json({ msg: "Admin login successful" });
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide valid email" });
+  }
+
+  const student = await Student.findOne({ email });
+
+  if (student) {
+    const passwordToken = crypto.randomBytes(70).toString("hex");
+    // send email
+    const origin = "http://localhost:3000";
+
+    await sendResetPasswordEmail({
+      name: student.firstName,
+      email: student.email,
+      token: passwordToken,
+      origin,
+    });
+
+    const tenMinutes = 1000 * 60 * 10;
+    const passwordTokenExpirationDate = new Date(Date.now() + tenMinutes);
+
+    student.passwordToken = createHashToken(passwordToken);
+    student.passwordTokenExpirationDate = passwordTokenExpirationDate;
+
+    await student.save();
+  }
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "Please check your email for reset password link" });
+};
+
+export const resetPassword = async (req, res) => {
+  const { token, email, password } = req.body;
+
+  if (!token || !email || !password) {
+    return res
+      .status(400)
+      .json({ msg: "Please provide token, email and password" });
+  }
+
+  const student = await Student.findOne({ email });
+
+  if (!student) {
+    return res.status(400).json({ msg: "Invalid credentials" });
+  }
+
+  const currentDate = new Date();
+
+  const hashedToken = createHashToken(token);
+
+  if (
+    student.passwordToken !== hashedToken ||
+    student.passwordTokenExpirationDate < currentDate
+  ) {
+    return res.status(400).json({ msg: "Invalid or expired token" });
+  }
+
+  student.password = password;
+  student.passwordToken = null;
+  student.passwordTokenExpirationDate = null;
+
+  await student.save();
+
+  res.status(StatusCodes.OK).json({ msg: "Password reset successful" });
 };
 
 export const logout = (req, res) => {

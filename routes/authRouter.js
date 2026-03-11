@@ -8,6 +8,8 @@ import {
   staffLogin,
   adminLogin,
   logout,
+  forgotPassword,
+  resetPassword,
 } from "../controllers/authController.js";
 import rateLimiter from "express-rate-limit";
 import {
@@ -53,5 +55,7 @@ router
 router.route("/logout").get(logout);
 router.route("/staff/logout").get(logout);
 router.route("/admin/logout").get(logout);
+router.route("/reset-password").post(resetPassword);
+router.route("/forgot-password").post(forgotPassword);
 
 export default router;

@@ -40,6 +40,14 @@ const StudentSchema = new mongoose.Schema(
     password: {
       type: String,
     },
+
+    passwordToken: {
+      type: String,
+    },
+
+    passwordTokenExpirationDate: {
+      type: String,
+    },
   },
   { timestamps: true },
 );

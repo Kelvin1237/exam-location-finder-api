@@ -39,7 +39,7 @@ app.use(express.json());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/exams", examsRouter);
-app.use("/api/v1/students", authenticateStudent, studentRouter);
+app.use("/api/v1/student", authenticateStudent, studentRouter);
 app.use("/api/v1/staff", authenticateStaff, staffRouter);
 app.use("/api/v1/admin", authenticateAdmin, adminRouter);
 
