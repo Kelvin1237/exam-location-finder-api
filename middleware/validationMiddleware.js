@@ -1,7 +1,13 @@
 import { body, param, validationResult } from "express-validator";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
-import { LEVELS, EXAM_STATUS, PROGRAMS } from "../utils/constants.js";
+import {
+  LEVELS,
+  EXAM_STATUS,
+  PROGRAMS,
+  COLLEGE_OF_SCIENCE_ROOMS,
+  COMPUTER_LABS,
+} from "../utils/constants.js";
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -187,7 +193,24 @@ export const validateExamInput = withValidationErrors([
   body("roomAllocations.*.roomAllocated")
     .trim()
     .notEmpty()
-    .withMessage("Room allocated is required"),
+    .withMessage("Room allocated is required")
+    .custom((value, { req }) => {
+      const { examType } = req.body;
+
+      let validRooms;
+
+      if (examType === "written") {
+        validRooms = Object.values(COLLEGE_OF_SCIENCE_ROOMS);
+      } else {
+        validRooms = Object.values(COMPUTER_LABS);
+      }
+
+      if (!validRooms.includes(value)) {
+        throw new Error(`Invalid room "${value}" for ${examType} exam`);
+      }
+
+      return true;
+    }),
   body("roomAllocations.*.roomLocation")
     .trim()
     .notEmpty()
@@ -275,7 +298,24 @@ export const validateUpdateExamInput = withValidationErrors([
     .optional()
     .trim()
     .notEmpty()
-    .withMessage("Room allocated is required"),
+    .withMessage("Room allocated is required")
+    .custom((value, { req }) => {
+      const { examType } = req.body;
+
+      let validRooms;
+
+      if (examType === "written") {
+        validRooms = Object.values(COLLEGE_OF_SCIENCE_ROOMS);
+      } else {
+        validRooms = Object.values(COMPUTER_LABS);
+      }
+
+      if (!validRooms.includes(value)) {
+        throw new Error(`Invalid room ${value} for ${examType} exam`);
+      }
+
+      return true;
+    }),
   body("roomAllocations.*.roomLocation")
     .optional()
     .trim()

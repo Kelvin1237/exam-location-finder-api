@@ -102,6 +102,33 @@ export const PROGRAMS = {
   TEXTILE_DESIGN: "BSc. Textile Design and Technology",
 };
 
+export const COMPUTER_LABS = {
+  MAIN_LIBRARY: "Prempeh II Library / Main library",
+  PHARMACY_BUILDING: "Pharmacy Building / Pharm Lab",
+  COLLEGE_OF_SCIENCE: "College of Science / CoS",
+  CASELY_HAYFORD: "Casely Hayford / IDL",
+  SCHOOL_OF_MEDICINE: "School of Medicine and Dentistry / SMS",
+  E_LEARNING_CENTRE: "KNUST E-Learning Centre / E-VBAB / CCB",
+  LIBRARY_MALL: "KNUST Library Mall / Lib Mall",
+  PETROLEUM_BUILDING: "Petroleum Building Lab (PB Lab)",
+};
+
+export const COLLEGE_OF_SCIENCE_ROOMS = {
+  GF_19: "GF-19",
+  GF_18: "GF-18",
+  GF_17: "GF-17",
+  FF_1: "FF-1",
+  FF_5: "FF-5",
+  FF_24: "FF-24",
+  SF_1: "SF-1",
+  SF_7: "SF-7",
+  SF_8: "SF-8",
+  SF_19: "SF-19",
+  SF_20: "SF-20",
+  TF_1: "TF-1",
+  TF_34: "TF-34",
+};
+
 export const resetPasswordEmailHTML = ({ name, resetURL }) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
